@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Servidor: localhost
--- Tiempo de generación: 07-03-2024 a las 13:05:17
--- Versión del servidor: 10.6.16-MariaDB-0ubuntu0.22.04.1
--- Versión de PHP: 8.1.2-1ubuntu2.14
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 06-03-2024 a las 05:59:14
+-- Versión del servidor: 10.4.28-MariaDB
+-- Versión de PHP: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -40,30 +40,11 @@ CREATE TABLE `registros` (
 --
 
 INSERT INTO `registros` (`id`, `nombre`, `area`, `sexo`, `correo`) VALUES
-(1, 'Rodrigo', 'Masculino', 'Medicina', 'jaiba@gmail.com'),
-(2, 'Miguel', 'Masculino', 'Arquitectura', 'miguelongmail.com'),
-(3, 'Alberto', 'Masculino', 'IME', 'elmuerto300@gmail.com'),
-(4, 'TiLin', 'Masculino', 'Administracion', 'linterna@gmail.com');
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `usuarios`
---
-
-CREATE TABLE `usuarios` (
-  `id` int(11) NOT NULL,
-  `nombre_usuario` varchar(50) NOT NULL,
-  `contrasena` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Volcado de datos para la tabla `usuarios`
---
-
-INSERT INTO `usuarios` (`id`, `nombre_usuario`, `contrasena`) VALUES
-(1, 'asdasd', '$2y$10$UEC7im4o42AG7yFxc4HAy.aV6Kc8TM1LObbO9qZpmk4CvjJVW54x2'),
-(2, 'asdasdsadas', '$2y$10$AkmmLvGe0uXMSMQe9ttEOOFyAa.oSemQXPA5Ir3feCyeAHmjMTCQe');
+(1, 'Rodrigo', 'Medicina', 'Masculino', 'jaiba@gmail.com'),
+(2, 'Miguel', 'Arquitectura', 'Masculino', 'miguelongmail.com'),
+(3, 'Alberto', 'IME', 'Masculino', 'elmuerto300@gmail.com'),
+(4, 'TiLin', 'Administracion', 'Masculino', 'linterna@gmail.com'),
+(5, 'Bruno', 'TI', 'Masculino', 'bruno@gmail.com');
 
 --
 -- Índices para tablas volcadas
@@ -76,12 +57,6 @@ ALTER TABLE `registros`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indices de la tabla `usuarios`
---
-ALTER TABLE `usuarios`
-  ADD PRIMARY KEY (`id`);
-
---
 -- AUTO_INCREMENT de las tablas volcadas
 --
 
@@ -89,13 +64,7 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `registros`
 --
 ALTER TABLE `registros`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
-
---
--- AUTO_INCREMENT de la tabla `usuarios`
---
-ALTER TABLE `usuarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
