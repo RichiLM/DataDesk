@@ -8,7 +8,7 @@ $m = $_POST['area'];
 $o = $_POST['sexo'];
 $p = $_POST['correo'];
 
-$sql = "UPDATE Registros set nombre='$n',
+$sql = "UPDATE registros set nombre='$n',
                             area='$m',
                             sexo='$o',
                             correo='$p'
