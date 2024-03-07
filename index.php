@@ -132,7 +132,7 @@
 										<!-- Button trigger modal -->
 										<button type="button" class="btn btn-primary" data-bs-toggle="modal"
 											data-bs-target="#exampleModal">
-											Crear cuenta
+											Iniciar sesión
 										</button>
 
 										<button type="button" class="btn btn-primary" data-bs-toggle="modal"

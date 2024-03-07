@@ -29,7 +29,7 @@
 
     <nav class="navbar navbar-expand-lg" data-bs-theme="dark">
         <div class="container-fluid">
-            <a class="navbar-brand index fw-bold" href="../index.html">DataDress</a>
+            <a class="navbar-brand index fw-bold" href="../index.php">DataDress</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
