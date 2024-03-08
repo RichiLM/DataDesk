@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -60,66 +63,80 @@
     <div class="container text-center text-light main">
         <h2 class="display-5 fw-bold">Administrador de usuarios</h2>
     </div>
-    <div class="container">
-        <div id="tabla"></div>
-    </div>
 
-    <!-- Modal Nuevo -->
-    <div class="modal fade" id="modalNuevo" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Nuevo registro</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <label for="nombre">Nombre </label>
-                    <input type="text" name="nombre" id="nombre" class="form-control input-sm">
-                    <label for="area">Área</label>
-                    <input type="text" name="area" id="area" class="form-control input-sm">
-                    <label for="sexo">Sexo</label>
-                    <input type="text" name="sexo" id="sexo" class="form-control input-sm">
-                    <label for="correo">Correo</label>
-                    <input type="text" name="correo" id="correo" class="form-control input-sm">
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" data-dismiss="modal" id="guardar">Guardar</button>
+    <?php
+    if (isset($_SESSION["nombreUsuario"])) {
+    ?>
+        <div class="container">
+            <div id="tabla"></div>
+        </div>
+
+        <!-- Modal Nuevo -->
+        <div class="modal fade" id="modalNuevo" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Nuevo registro</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <label for="nombre">Nombre </label>
+                        <input type="text" name="nombre" id="nombre" class="form-control input-sm">
+                        <label for="area">Área</label>
+                        <input type="text" name="area" id="area" class="form-control input-sm">
+                        <label for="sexo">Sexo</label>
+                        <input type="text" name="sexo" id="sexo" class="form-control input-sm">
+                        <label for="correo">Correo</label>
+                        <input type="text" name="correo" id="correo" class="form-control input-sm">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" id="guardar">Guardar</button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <!-- Editar datos -->
-    <div class="modal fade" id="modalCambio" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-sm">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Actualizar</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <input type="text" hidden="" id="id" class="form-control input-sm">
-                    <label> Nombre</label>
-                    <input type="text" name="" id="nombre1" class="form-control input-sm">
-                    <label> Área</label>
-                    <input type="text" name="" id="area1" class="form-control input-sm">
-                    <label> Sexo</label>
-                    <input type="text" name="" id="sexo1" class="form-control input-sm">
-                    <label> Correo</label>
-                    <input type="text" name="" id="correo1" class="form-control input-sm">
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-warning" id="actualizadatos" data-dismiss="modal">Actualizar</button>
+        <!-- Editar datos -->
+        <div class="modal fade" id="modalCambio" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Actualizar</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <input type="text" hidden="" id="id" class="form-control input-sm">
+                        <label> Nombre</label>
+                        <input type="text" name="" id="nombre1" class="form-control input-sm">
+                        <label> Área</label>
+                        <input type="text" name="" id="area1" class="form-control input-sm">
+                        <label> Sexo</label>
+                        <input type="text" name="" id="sexo1" class="form-control input-sm">
+                        <label> Correo</label>
+                        <input type="text" name="" id="correo1" class="form-control input-sm">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-warning" id="actualizadatos" data-dismiss="modal">Actualizar</button>
 
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-
+    <?php
+    } else {
+        ?>
+        <div class="container text-center text-light main">
+            <h2 class="display-7 fw-bold">Aun no has iniciado sesion</h2>
+            <p class="text-center text-light fs-4">Favor de iniciar sesion en el siguiente enlace:</p>
+            <a class="btn btn-primary" href="../index.php">Iniciar Sesion</a>
+        </div>
+        <?php
+    }
+    ?>
     <footer class="text-center">
         <!-- Grid container -->
         <div class="container pt-4">
@@ -152,7 +169,7 @@
         </div>
         <!-- Copyright -->
     </footer>
-    
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script src="../librerias/jquery-3.7.1.min.js"></script>
     <script src="../librerias/boostrap/js/bootstrap.js"></script>

@@ -1,46 +1,30 @@
 <?php
 require_once 'PHP/conexion.php';
 $conexion = conexion();
-$msg = '';
 
-if(isset($_SESSION["nombreUsuario"])){
-	echo $_SESSION["nombreUsuario"];
-} 
-
-if (isset($_POST['crearC'])) {
-	$name = $_POST["usuario"];
-	$pssw = $_POST["contra"];
-	$hash_contrasena = password_hash($pssw, PASSWORD_DEFAULT);
-
-	$sql = "INSERT INTO usuarios (nombre_usuario, contrasena) VALUES ('$name', '$hash_contrasena')";
-	if (mysqli_query($conexion, $sql)) {
-		$msg = 'Registro completado';
-	} else {
-		$msg = 'Error en el registro';
-	}
-}
+session_start();
 
 if (isset($_POST['inicioS'])) {
-    $nameS = $_POST["usuario"];
-    $psswS = $_POST["contra"];
+	$nameS = $_POST["usuario"];
+	$psswS = $_POST["contra"];
 
-    $sqlS = "SELECT * FROM usuarios WHERE nombre_usuario = '$nameS'";
-    $resS = mysqli_query($conexion, $sqlS);
-    
-    if ($resS && mysqli_num_rows($resS) > 0) {
-        session_start();
-        $resSFetch = mysqli_fetch_assoc($resS);
-        $nombre = $resSFetch["nombre_usuario"];
-        $contrasena_hash = $resSFetch["contrasena"];
-        
-        if (password_verify($psswS, $contrasena_hash)) {
-            $_SESSION["nombreUsuario"] = $nombre;
-        }
-    }
+	$sqlS = "SELECT * FROM usuarios WHERE nombre_usuario = '$nameS'";
+	$resS = mysqli_query($conexion, $sqlS);
+
+	if ($resS && mysqli_num_rows($resS) > 0) {
+		$resSFetch = mysqli_fetch_assoc($resS);
+		$nombre = $resSFetch["nombre_usuario"];
+		$contrasena_hash = $resSFetch["contrasena"];
+
+		if (password_verify($psswS, $contrasena_hash)) {
+			$_SESSION["nombreUsuario"] = $nombre;
+		}
+	}
 }
 
 
 if (isset($_POST['cerrarS'])) {
+	session_unset();
 	session_destroy();
 	header("Location: index.php");
 	exit;
@@ -149,48 +133,81 @@ if (isset($_POST['cerrarS'])) {
 											<h3 class="mb-5 fw-bold">Login DataDress</h3>
 
 											<?php
-												if(isset($msg)){
-													if($msg == 'Registro completado') {
-														?><div class="alert alert-success" role="alert">
-															<p class="success"><?php echo $msg; ?><br>Ahora puedes iniciar sesion</p>
-													 	</div>
-													    <?php
+											if (isset($_POST['crearC'])) {
+												$name = $_POST["usuario"];
+												$pssw = $_POST["contra"];
+												$hash_contrasena = password_hash($pssw, PASSWORD_DEFAULT);
+
+												// Verificar si la tabla 'usuarioss' existe
+												$resultado = mysqli_query($conexion, "SHOW TABLES LIKE 'usuarios'");
+												if (!$resultado || mysqli_num_rows($resultado) == 0) {
+													// La tabla no existe, mostrar la alerta de error
+													echo '<div class="alert alert-danger" role="alert">
+            											<p class="error">Error al registrar el usuario.</p>
+        												</div>';
+												} else {
+													// La tabla existe, ejecutar la consulta para insertar el usuario
+													$sql = "INSERT INTO usuarios (nombre_usuario, contrasena) VALUES ('$name', '$hash_contrasena')";
+													if (mysqli_query($conexion, $sql)) {
+														// Registro exitoso, mostrar la alerta de éxito
+														echo '<div class="alert alert-success" role="alert">
+															<p class="success">Registro exitoso!! Ahora puedes iniciar sesión</p>
+														</div>';
+													} else {
+														// Error al ejecutar la consulta, mostrar la alerta de error
+														echo '<div class="alert alert-danger" role="alert">
+															<p class="error">Error al registrar el usuario</p>
+														</div>';
 													}
-												} 
+												}
+											}
+											?>
+
+
+											<?php
+											if (isset($_SESSION["nombreUsuario"])) {
+
+											?>
+												<div class="alert alert-success" role="alert">
+													<p class="success">Has iniciado sesion</p>
+												</div>
+											<?php
+											} elseif (isset($_POST['inicioS'])) {
+											?>
+												<div class="alert alert-danger" role="alert">
+													<p class="error">Los datos de inicio de sesión son incorrectos. Por favor, inténtalo de nuevo.</p>
+												</div>
+											<?php
+											}
 											?>
 
 											<?php
-												if(isset($_SESSION["nombreUsuario"])){
+											if (!isset($_SESSION["nombreUsuario"])) {
 
-													?>
-													<div class="alert alert-success" role="alert">
-														<p class="success">Has iniciado sesion</p>
-													</div>
-													<?php
-												} 
+											?>
+												<div class="form-outline mb-4">
+													<input type="text" id="typeEmailX-2" class="form-control form-control-lg" name="usuario" placeholder="Usuario" />
+													<label class="form-label" for="typeEmailX-2">Usuario</label>
+												</div>
+
+												<div class="form-outline mb-4">
+													<input type="password" id="typePasswordX-2" class="form-control form-control-lg" name="contra" placeholder="Contraseña" />
+													<label class="form-label" for="typePasswordX-2">Contraseña</label>
+												</div>
+												<input type="submit" class="btn btn-primary" value="Iniciar sesión" name="inicioS">
+
+												<input type="submit" class="btn btn-primary" value="Crear cuenta" name="crearC">
+											<?php
+											}
 											?>
 
-											<div class="form-outline mb-4">
-												<input type="text" id="typeEmailX-2" class="form-control form-control-lg" name="usuario" placeholder="Usuario" />
-												<label class="form-label" for="typeEmailX-2">Usuario</label>
-											</div>
-
-											<div class="form-outline mb-4">
-												<input type="password" id="typePasswordX-2" class="form-control form-control-lg" name="contra" placeholder="Contraseña" />
-												<label class="form-label" for="typePasswordX-2">Contraseña</label>
-											</div>
-
-											<input type="submit" class="btn btn-primary" value="Iniciar sesión" name="inicioS">
-
-											<input type="submit" class="btn btn-primary" value="Crear cuenta" name="crearC">
-
 											<?php
-												if(isset($_SESSION["nombreUsuario"])){
+											if (isset($_SESSION["nombreUsuario"])) {
 
-													?>
-													<input type="submit" class="btn btn-primary" value="Cerrar Sesion" name="cerrarS">
-													<?php
-												} 
+											?>
+												<input type="submit" class="btn btn-primary" value="Cerrar Sesion" name="cerrarS">
+											<?php
+											}
 											?>
 
 											<hr class="my-4">
