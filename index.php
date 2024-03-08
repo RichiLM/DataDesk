@@ -170,6 +170,8 @@ if (isset($_POST['cerrarS'])) {
 											?>
 												<div class="alert alert-success" role="alert">
 													<p class="success">Has iniciado sesion</p>
+													<p class="success">Ahora puedes acceder a los usuarios</p>
+													<a class="btn btn-primary" href="layouts/usuarios.php">Usuarios</a>
 												</div>
 											<?php
 											} elseif (isset($_POST['inicioS'])) {

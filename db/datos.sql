@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Servidor: localhost
--- Tiempo de generación: 07-03-2024 a las 13:05:17
--- Versión del servidor: 10.6.16-MariaDB-0ubuntu0.22.04.1
--- Versión de PHP: 8.1.2-1ubuntu2.14
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 08-03-2024 a las 04:22:16
+-- Versión del servidor: 10.4.28-MariaDB
+-- Versión de PHP: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -40,10 +40,16 @@ CREATE TABLE `registros` (
 --
 
 INSERT INTO `registros` (`id`, `nombre`, `area`, `sexo`, `correo`) VALUES
-(1, 'Rodrigo', 'Masculino', 'Medicina', 'jaiba@gmail.com'),
-(2, 'Miguel', 'Masculino', 'Arquitectura', 'miguelongmail.com'),
-(3, 'Alberto', 'Masculino', 'IME', 'elmuerto300@gmail.com'),
-(4, 'TiLin', 'Masculino', 'Administracion', 'linterna@gmail.com');
+(1, 'Rodrigo', 'Medicina', 'Masculino', 'rodrigo@gmail.com'),
+(2, 'María', 'Ingeniería', 'Femenino', 'maria@gmail.com'),
+(3, 'Juan', 'Ventas', 'Masculino', 'juan@gmail.com'),
+(4, 'Laura', 'Recursos Humanos', 'Femenino', 'laura@gmail.com'),
+(5, 'Carlos', 'Tecnología', 'Masculino', 'carlos@gmail.com'),
+(6, 'Ana', 'Marketing', 'Femenino', 'ana@gmail.com'),
+(7, 'Pedro', 'Contabilidad', 'Masculino', 'pedro@gmail.com'),
+(8, 'Sofía', 'Desarrollo de Negocios', 'Femenino', 'sofia@gmail.com'),
+(9, 'Luis', 'Producción', 'Masculino', 'luis@gmail.com'),
+(10, 'Marta', 'Diseño', 'Femenino', 'marta@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -62,8 +68,7 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`id`, `nombre_usuario`, `contrasena`) VALUES
-(1, 'asdasd', '$2y$10$UEC7im4o42AG7yFxc4HAy.aV6Kc8TM1LObbO9qZpmk4CvjJVW54x2'),
-(2, 'asdasdsadas', '$2y$10$AkmmLvGe0uXMSMQe9ttEOOFyAa.oSemQXPA5Ir3feCyeAHmjMTCQe');
+(1, 'richilm', '$2y$10$RYaPPmqlR8grjIEfW.4bf.kLF9jV/B/P3bzYBZ911pl3cGANJieOi');
 
 --
 -- Índices para tablas volcadas
@@ -89,13 +94,13 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `registros`
 --
 ALTER TABLE `registros`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
