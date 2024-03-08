@@ -1,3 +1,53 @@
+<?php
+require_once 'PHP/conexion.php';
+$conexion = conexion();
+$msg = '';
+
+if(isset($_SESSION["nombreUsuario"])){
+	echo $_SESSION["nombreUsuario"];
+} 
+
+if (isset($_POST['crearC'])) {
+	$name = $_POST["usuario"];
+	$pssw = $_POST["contra"];
+	$hash_contrasena = password_hash($pssw, PASSWORD_DEFAULT);
+
+	$sql = "INSERT INTO usuarios (nombre_usuario, contrasena) VALUES ('$name', '$hash_contrasena')";
+	if (mysqli_query($conexion, $sql)) {
+		$msg = 'Registro completado';
+	} else {
+		$msg = 'Error en el registro';
+	}
+}
+
+if (isset($_POST['inicioS'])) {
+    $nameS = $_POST["usuario"];
+    $psswS = $_POST["contra"];
+
+    $sqlS = "SELECT * FROM usuarios WHERE nombre_usuario = '$nameS'";
+    $resS = mysqli_query($conexion, $sqlS);
+    
+    if ($resS && mysqli_num_rows($resS) > 0) {
+        session_start();
+        $resSFetch = mysqli_fetch_assoc($resS);
+        $nombre = $resSFetch["nombre_usuario"];
+        $contrasena_hash = $resSFetch["contrasena"];
+        
+        if (password_verify($psswS, $contrasena_hash)) {
+            $_SESSION["nombreUsuario"] = $nombre;
+        }
+    }
+}
+
+
+if (isset($_POST['cerrarS'])) {
+	session_destroy();
+	header("Location: index.php");
+	exit;
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -89,15 +139,36 @@
 					sunt veritatis dignissimos consectetur quae accusantium molestias eos, omnis placeat sint.</p>
 			</section>
 			<aside class="col-sm-12 col-md-6 col-lg-4">
-
 				<section>
 					<div class="container py-5 h-100">
 						<div class="row d-flex justify-content-center align-items-center h-100">
 							<div class="col-12">
 								<div class="card shadow-2-strong" style="border-radius: 1rem;">
 									<div class="card-body p-5 text-center">
-										<form method="post" action="PHP/sesion.php">
+										<form method="post">
 											<h3 class="mb-5 fw-bold">Login DataDress</h3>
+
+											<?php
+												if(isset($msg)){
+													if($msg == 'Registro completado') {
+														?><div class="alert alert-success" role="alert">
+															<p class="success"><?php echo $msg; ?><br>Ahora puedes iniciar sesion</p>
+													 	</div>
+													    <?php
+													}
+												} 
+											?>
+
+											<?php
+												if(isset($_SESSION["nombreUsuario"])){
+
+													?>
+													<div class="alert alert-success" role="alert">
+														<p class="success">Has iniciado sesion</p>
+													</div>
+													<?php
+												} 
+											?>
 
 											<div class="form-outline mb-4">
 												<input type="text" id="typeEmailX-2" class="form-control form-control-lg" name="usuario" placeholder="Usuario" />
@@ -109,44 +180,18 @@
 												<label class="form-label" for="typePasswordX-2">Contraseña</label>
 											</div>
 
-											<!-- Checkbox -->
-											<!--
-										<div class="form-check d-flex justify-content-start mb-4">
-											<input class="form-check-input" type="checkbox" value="" id="form1Example3" />
-											<label class="form-check-label" for="form1Example3"> Olvide contraseña
-											</label>
-										</div>
-										-->
-											<!-- <button class="btn btn-primary btn-lg btn-block" type="submit">Iniciar sesión</button> -->
-
 											<input type="submit" class="btn btn-primary" value="Iniciar sesión" name="inicioS">
 
 											<input type="submit" class="btn btn-primary" value="Crear cuenta" name="crearC">
 
-											<!-- Button trigger modal -->
-											<!-- <input type="submit" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" value="Iniciar sesión" name="inicioS">
+											<?php
+												if(isset($_SESSION["nombreUsuario"])){
 
-											<input type="submit" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" value="Crear cuenta" name="crearC"> -->
-
-											<!-- Modal -->
-											<!-- <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-												<div class="modal-dialog">
-													<div class="modal-content">
-														<div class="modal-header">
-															<h1 class="modal-title fs-5" id="exampleModalLabel">Inicio de sesión correcto
-															</h1>
-															<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-														</div>
-														<div class="modal-body">
-															Puedes continuar navegando
-														</div>
-														<div class="modal-footer">
-															<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-															<button type="button" class="btn btn-primary">Continuar</button>
-														</div>
-													</div>
-												</div>
-											</div> -->
+													?>
+													<input type="submit" class="btn btn-primary" value="Cerrar Sesion" name="cerrarS">
+													<?php
+												} 
+											?>
 
 											<hr class="my-4">
 

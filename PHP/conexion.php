@@ -2,8 +2,8 @@
 
 function conexion(){
     $servidor = 'localhost';
-    $usuario = 'richidb';
-    $password = 'admin11';
+    $usuario = 'root';
+    $password = '';
     $bd = 'datos';
     $conexion = mysqli_connect($servidor, $usuario, $password, $bd);
     return $conexion;
